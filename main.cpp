@@ -73,8 +73,7 @@ void on_keycontrol_pressed(LPTETRIS t, char cmd)
 }
 
 int main(void)
-{
-	srand((unsigned int)time(NULL));
+{    srand((unsigned int)time(NULL));
     int level = 2, count = 0;
 
     printf("Select difficult level [1-2]: ");
