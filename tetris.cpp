@@ -10,8 +10,7 @@
 
 #ifdef _WIN32
 inline double round(double x)
-{
-	return (floor(x + 0.5));
+{    return (floor(x + 0.5));
 }
 #endif
 
@@ -44,16 +43,7 @@ int test_hit(LPTETRIS t)
 }
 
 int test_gameover(LPTETRIS t)
-{
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			if (t->block.data[i][j]) {
-				t->gameover_flag = i + t->block.y < 1;
-				return t->gameover_flag;
-			}
-		}
-	}
-	return 0;
+{    for (int i = 0; i < 5; i++) {        for (int j = 0; j < 5; j++) {            if (t->block.data[i][j]) {                t->gameover_flag = i + t->block.y < 1;                return t->gameover_flag;            }        }    }    return 0;
 }
 
 void update_block_data(struct block *bl){
@@ -88,27 +78,23 @@ void update_block_data(struct block *bl){
 
 void tetris_init(LPTETRIS t, int w, int h, int l)
 {
-	t->width = w;
-	t->high = h;
-	t->level = l;
-	t->score = 0;
+    t->width = w;
+    t->high = h;
+    t->level = l;
+    t->score = 0;
     t->gameover_flag = 0;
 
-	t->game = (uchar **)malloc(sizeof(uchar *) * h);
-	for (int i = 0; i < h; i++) {
-		t->game[i] = (uchar *)malloc(sizeof(uchar) * w);
-		for (int j = 0; j < w; j++) {
-			t->game[i][j] = 0;
-		}
-	}
+    t->game = (uchar **)malloc(sizeof(uchar *) * h);
+    for (int i = 0; i < h; i++) {
+        t->game[i] = (uchar *)malloc(sizeof(uchar) * w);
+        for (int j = 0; j < w; j++) {
+            t->game[i][j] = 0;
+        }
+    }
 }
 
 void tetris_clean(LPTETRIS t)
-{
-	for (int i = 0; i < t->high; i++) {
-		free(t->game[i]);
-	}
-	free(t->game);
+{    for (int i = 0; i < t->high; i++) {        free(t->game[i]);    }    free(t->game);
 }
 
 void clear_screen(int, int h)
@@ -154,34 +140,34 @@ void tetris_print(LPTETRIS t)
 {
     clear_screen(t->width, t->high);
 
-	printf("[LEVEL: %d | SCORE: %d]\n", t->level, t->score);
-	for (int i = 0; i < t->width + 2; i++) {
-		printf("=");
-	}
-	printf("\n");
+    printf("[LEVEL: %d | SCORE: %d]\n", t->level, t->score);
+    for (int i = 0; i < t->width + 2; i++) {
+        printf("=");
+    }
+    printf("\n");
 
     struct block b = t->block;
 
-	for (int i = 0; i < t->high; i++) {
-		printf("|");
+    for (int i = 0; i < t->high; i++) {
+        printf("|");
         for (int j = 0; j < t->width; j++) {
             int bx = j - b.x;
             int by = i - b.y;
-            if (bx >= 0 && bx <5 && by >= 0 && by < 5 && b.data[by][bx]) {
-				printf("X");
+            if (bx >= 0 && bx < 5 && by >= 0 && by < 5 && b.data[by][bx]) {
+                printf("X");
                 continue;
             }
             if (t->game[i][j]) printf("X");
             else printf(" ");
-		}
-		printf("|\n");
-	}
+        }
+        printf("|\n");
+    }
 
-	for (int i = 0; i < t->width + 2; i++) {
-		printf("=");
-	}
-	printf("\n");
-	fflush(stdout);
+    for (int i = 0; i < t->width + 2; i++) {
+        printf("=");
+    }
+    printf("\n");
+    fflush(stdout);
 }
 
 void tetris_new_block(LPTETRIS t)
@@ -199,18 +185,11 @@ void tetris_rotate_block(LPTETRIS t)
     if (t->block.type == TYPE_SQUARE)
         return;
 
-    t->block.direction += 0.5f;
-    if (t->block.direction > 1.5f) {
-        t->block.direction = 0;
-	}
-    update_block_data(&t->block);
+    t->block.direction += 0.5f;    if (t->block.direction > 1.5f) {        t->block.direction = 0;    }    update_block_data(&t->block);
 
     if (!test_hit(t)) {
         t->block.direction -= 0.5f;
-        if (t->block.direction < 0) {
-            t->block.direction = 1.5f;
-		}
-        update_block_data(&t->block);
+        if (t->block.direction < 0) {            t->block.direction = 1.5f;        }        update_block_data(&t->block);
 	}
 }
 
@@ -219,9 +198,7 @@ void tetris_block_down(LPTETRIS t)
     t->block.y += 1;
     int x = t->block.x;
     int y = t->block.y;
-
-	if (test_hit(t)) return;
-	else if (test_gameover(t)) return;
+    if (test_hit(t)) return;    else if (test_gameover(t)) return;
 
     y -= 1;
     for (int i = 0; i < 5; i++) {

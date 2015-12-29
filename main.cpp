@@ -42,19 +42,15 @@ void set_ioconfig() {
 
 void my_sleep(unsigned long ms)
 {
-#ifdef _WIN32
-	Sleep(ms);
-#else
-	timespec tm;
+#ifdef _WIN32    Sleep(ms);
+#else    timespec tm;
     tm.tv_sec = ms/1000;
-    tm.tv_nsec = 1000000 * (ms % 1000);
-	nanosleep(&tm, 0);
+    tm.tv_nsec = 1000000 * (ms % 1000);    nanosleep(&tm, 0);
 #endif
 }
 
 void on_keycontrol_pressed(LPTETRIS t, char cmd)
-{
-	switch (cmd) {
+{    switch (cmd) {
 	case ' ':
 		tetris_rotate_block(t);
 		break;
@@ -126,7 +122,6 @@ int main(void)
     printf("Game over\n");
 	my_sleep(2000);
     tetris_clean(&t);
-
-	return 0;
+    return 0;
 }
 
