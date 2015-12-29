@@ -1,0 +1,14 @@
+ # Visual Studio
+Debug/
+Release/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+#Code Blocks
+*.cbp
+*.depend
+obj/
+bin/
+
+.directory
